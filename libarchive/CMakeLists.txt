@@ -14,6 +14,10 @@ add_definitions(-DHAVE_CONFIG_H)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_POSIX_C_SOURCE -nostdinc -fPIC")
 set(CMAKE_EXE_LINKER_FLAGS "-nodefaultlibs -nostdlib -Wl,--version-script=${DARLING_TOP_DIRECTORY}/darwin.map")
 
+SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/darling")
+SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE) 
+SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
 include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR}/..)
 include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR}/libarchive)
 include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR}/libarchive_fe)
@@ -102,7 +106,7 @@ set(libarchive_sources
 )
 
 add_library(archive SHARED ${libarchive_sources})
-target_link_libraries(archive system lzma xml2 CommonCrypto)
+target_link_libraries(archive system lzma xml2 CommonCrypto z bz2)
 
 set(libarchive_fe_sources
 	libarchive_fe/err.c
