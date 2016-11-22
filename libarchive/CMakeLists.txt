@@ -143,3 +143,34 @@ if (NOT DARLING_NO_EXECUTABLES)
 		DESTINATION libexec/darling/usr/bin)
 endif (NOT DARLING_NO_EXECUTABLES)
 
+set(man1
+	contrib/shar/shar.1
+	doc/man/bsdcpio.1
+	symlinks/cpio.1
+	doc/man/bsdtar.1
+	symlinks/tar.1
+)
+
+install(FILES ${man1} DESTINATION libexec/darling/usr/share/man/man1)
+
+set(man3
+	doc/man/archive_entry.3
+	doc/man/archive_read.3
+	doc/man/archive_read_disk.3
+	doc/man/archive_util.3
+	doc/man/archive_write.3
+	doc/man/archive_write_disk.3
+	doc/man/libarchive.3
+	doc/man/libarchive_internals.3
+)
+
+install(FILES ${man3} DESTINATION libexec/darling/usr/share/man/man3)
+
+set(man5
+	doc/man/cpio.5
+	doc/man/libarchive-formats.5
+	doc/man/mtree.5
+	doc/man/tar.5
+)
+
+install(FILES ${man5} DESTINATION libexec/darling/usr/share/man/man5)
