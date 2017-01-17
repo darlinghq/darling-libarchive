@@ -17,30 +17,25 @@ add_definitions(
 )
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_POSIX_C_SOURCE -nostdinc -fPIC")
-set(CMAKE_EXE_LINKER_FLAGS "-nodefaultlibs -nostdlib -Wl,--version-script=${DARLING_TOP_DIRECTORY}/darwin.map")
-
-SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/darling")
-SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
-SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR}/..)
 include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR}/libarchive)
 include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR}/libarchive_fe)
-include_directories(${DARLING_TOP_DIRECTORY}/src/libc/include/FreeBSD)
-include_directories(${DARLING_TOP_DIRECTORY}/src/libc/include/NetBSD)
-include_directories(${DARLING_TOP_DIRECTORY}/src/libc/gen)
-include_directories(${DARLING_TOP_DIRECTORY}/src/libc/darwin)
-include_directories(${DARLING_TOP_DIRECTORY}/src/libc/stdtime/FreeBSD)
-include_directories(${DARLING_TOP_DIRECTORY}/src/launchd/liblaunch)
-include_directories(${DARLING_TOP_DIRECTORY}/src/external/libdispatch)
-include_directories(${DARLING_TOP_DIRECTORY}/src/external/zlib)
-include_directories(${DARLING_TOP_DIRECTORY}/src/external/bzip2)
-include_directories(${DARLING_TOP_DIRECTORY}/src/copyfile)
-include_directories(${DARLING_TOP_DIRECTORY}/src/external/liblzma/src/liblzma/api/)
-include_directories(${DARLING_TOP_DIRECTORY}/src/external/libxml2/include/)
+include_directories(${CMAKE_SOURCE_DIR}/src/libc/include/FreeBSD)
+include_directories(${CMAKE_SOURCE_DIR}/src/libc/include/NetBSD)
+include_directories(${CMAKE_SOURCE_DIR}/src/libc/gen)
+include_directories(${CMAKE_SOURCE_DIR}/src/libc/darwin)
+include_directories(${CMAKE_SOURCE_DIR}/src/libc/stdtime/FreeBSD)
+include_directories(${CMAKE_SOURCE_DIR}/src/launchd/liblaunch)
+include_directories(${CMAKE_SOURCE_DIR}/src/external/libdispatch)
+include_directories(${CMAKE_SOURCE_DIR}/src/external/zlib)
+include_directories(${CMAKE_SOURCE_DIR}/src/external/bzip2)
+include_directories(${CMAKE_SOURCE_DIR}/src/copyfile)
+include_directories(${CMAKE_SOURCE_DIR}/src/external/liblzma/src/liblzma/api/)
+include_directories(${CMAKE_SOURCE_DIR}/src/external/libxml2/include/)
 include_directories(${CMAKE_BINARY_DIR}/src/external/libxml2/include/)
-include_directories(${DARLING_TOP_DIRECTORY}/src/external/icu/icuSources/common/)
-include_directories(${DARLING_TOP_DIRECTORY}/src/CommonCrypto)
+include_directories(${CMAKE_SOURCE_DIR}/src/external/icu/icuSources/common/)
+include_directories(${CMAKE_SOURCE_DIR}/src/CommonCrypto)
 
 set(libarchive_sources
 	libarchive/archive_check_magic.c
@@ -110,8 +105,12 @@ set(libarchive_sources
 	libarchive/filter_fork.c
 )
 
-add_library(archive SHARED ${libarchive_sources})
+set(DYLIB_INSTALL_NAME "/usr/lib/libarchive.2.dylib")
+add_darling_library(archive SHARED ${libarchive_sources})
 target_link_libraries(archive system lzma xml2 CommonCrypto z bz2)
+set_target_properties(archive PROPERTIES OUTPUT_NAME "archive.2")
+
+InstallSymlink("libarchive.2.dylib" "${CMAKE_INSTALL_PREFIX}/libexec/darling/usr/lib/libarchive.dylib")
 
 set(libarchive_fe_sources
 	libarchive_fe/err.c
@@ -122,7 +121,7 @@ set(libarchive_fe_sources
 
 add_library(archive_fe OBJECT ${libarchive_fe_sources})
 install(TARGETS archive
-	DESTINATION ${CMAKE_INSTALL_LIBDIR}/darling)
+	DESTINATION libexec/darling/usr/lib)
 
 if (NOT DARLING_NO_EXECUTABLES)
 	add_darling_executable(cpio cpio/cmdline.c cpio/cpio.c $<TARGET_OBJECTS:archive_fe>)
