@@ -108,7 +108,7 @@ set(libarchive_sources
 set(DYLIB_INSTALL_NAME "/usr/lib/libarchive.2.dylib")
 add_darling_library(archive SHARED ${libarchive_sources})
 make_fat(archive)
-target_link_libraries(archive system lzma xml2 CommonCrypto z bz2)
+target_link_libraries(archive system lzma xml2 z bz2)
 set_target_properties(archive PROPERTIES OUTPUT_NAME "archive.2")
 
 InstallSymlink("libarchive.2.dylib" "${CMAKE_INSTALL_PREFIX}/libexec/darling/usr/lib/libarchive.dylib")
