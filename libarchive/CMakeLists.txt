@@ -106,6 +106,9 @@ set(libarchive_sources
 )
 
 set(DYLIB_INSTALL_NAME "/usr/lib/libarchive.2.dylib")
+set(DYLIB_COMPAT_VERSION "9.0.0")
+set(DYLIB_CURRENT_VERSION "9.2.0")
+
 add_darling_library(archive SHARED ${libarchive_sources})
 make_fat(archive)
 target_link_libraries(archive system lzma xml2 z bz2)
