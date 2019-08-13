@@ -123,7 +123,7 @@ set(libarchive_fe_sources
 	libarchive_fe/pathmatch.c
 )
 
-add_library(archive_fe OBJECT ${libarchive_fe_sources})
+add_darling_object_library(archive_fe ${libarchive_fe_sources})
 install(TARGETS archive
 	DESTINATION libexec/darling/usr/lib)
 
