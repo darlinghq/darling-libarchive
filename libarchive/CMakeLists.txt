@@ -12,11 +12,11 @@ add_definitions(-D__APPLE__ -D__DYNAMIC__)
 add_definitions(-DHAVE_CONFIG_H)
 
 add_definitions(
-	-Wno-macro-redefined
-	-Wno-absolute-value
+	-w
+	-nostdinc
 )
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_POSIX_C_SOURCE -nostdinc -fPIC")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_POSIX_C_SOURCE -fPIC")
 
 include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR}/..)
 include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR}/libarchive)
