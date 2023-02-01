@@ -1,8 +1,0 @@
-tar/creation_set.c
-tar/bsdtar.c
-tar/cmdline.c
-tar/read.c
-tar/subst.c
-tar/util.c
-tar/write.c
-
