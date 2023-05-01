@@ -187,7 +187,7 @@ if (NOT DARLING_NO_EXECUTABLES)
 endif (NOT DARLING_NO_EXECUTABLES)
 
 set(man1
-	contrib/shar/shar.1
+	#contrib/shar/shar.1
 	doc/man/bsdcpio.1
 	doc/man/bsdtar.1
 )
