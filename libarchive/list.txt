@@ -1,7 +1,0 @@
-creation_set.c in Sources */,
-bsdtar.c in Sources */,
-cmdline.c in Sources */,
-read.c in Sources */,
-subst.c in Sources */,
-util.c in Sources */,
-write.c in Sources */,

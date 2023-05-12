@@ -18,7 +18,7 @@ add_definitions(
 	-nostdinc
 )
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC -Wno-error=int-conversion")
 
 include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR}/..)
 include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR}/libarchive)
@@ -187,7 +187,7 @@ if (NOT DARLING_NO_EXECUTABLES)
 endif (NOT DARLING_NO_EXECUTABLES)
 
 set(man1
-	contrib/shar/shar.1
+	#contrib/shar/shar.1
 	doc/man/bsdcpio.1
 	doc/man/bsdtar.1
 )
